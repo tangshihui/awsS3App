@@ -1,0 +1,27 @@
+group 'com.tsh'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'scala'
+
+sourceCompatibility = 1.8
+
+
+repositories {
+    //由于国内可能无法正常访问maven中心库，这里就填写了两个基本上能正常访问的maven库地址
+    maven {
+        url 'http://maven.aliyun.com/nexus/content/groups/public/'
+    }
+    maven {
+        url 'https://maven.ibiblio.org/maven2/'
+    }
+}
+
+dependencies {
+    compile group: 'org.scala-lang', name: 'scala-library', version: '2.12.8' //添加scala基本库
+    compile group: 'mysql', name:'mysql-connector-java',version:'6.0.6'
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.11.366'
+
+}
+
+
