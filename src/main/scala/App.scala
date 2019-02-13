@@ -45,7 +45,7 @@ object App {
 
   def main(args: Array[String]): Unit = {
 
-    val BUCKET_NAME = "gridx-oregon-pge-dev"
+    val BUCKET_NAME = "bucketname"
 
     //println(ACCESS_KEY)
     //listObjectsOf(bucketName = BUCKET_NAME)
