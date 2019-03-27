@@ -8,10 +8,7 @@ sourceCompatibility = 1.8
 
 
 repositories {
-    //由于国内可能无法正常访问maven中心库，这里就填写了两个基本上能正常访问的maven库地址
-    maven {
-        url 'http://maven.aliyun.com/nexus/content/groups/public/'
-    }
+    mavenLocal()
     maven {
         url 'https://maven.ibiblio.org/maven2/'
     }
