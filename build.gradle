@@ -8,10 +8,11 @@ sourceCompatibility = 1.8
 
 
 repositories {
-    mavenLocal()
     maven {
-        url 'https://maven.ibiblio.org/maven2/'
+        url "http://repo1.maven.org/maven2/"
     }
+    mavenLocal()
+    jcenter()
 }
 
 dependencies {
