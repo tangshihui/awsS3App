@@ -66,19 +66,18 @@ object App {
 
     //println(ACCESS_KEY)
     //listObjectsOf(bucketName = BUCKET_NAME)
-    putFile(BUCKET_NAME, "aws-secret-key/shihui/test.sh", "/Users/tangshihui/Learn/shell/users")
+    //putFile(BUCKET_NAME, "aws-secret-key/shihui/test.sh", "/Users/tangshihui/Learn/shell/users")
 
 
 
-    //val keyName = "jing/pge/2018-12-10/pgedetailrequest.txt"
+    val keyName = "jing/pge/2018-12-10/pgedetailrequest.txt"
 
-    // readTxt(bucketName = BUCKET_NAME, keyName)
+    readTxt(bucketName = BUCKET_NAME, keyName)
 
     /*println(caseAge(18))
     println(caseAge(25))
     println(caseAge(60))*/
 
-    Seq
 
   }
 
