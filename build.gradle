@@ -1,25 +1,131 @@
-group 'com.tsh'
-version '1.0-SNAPSHOT'
+buildscript {
+    repositories {
+        jcenter()
+    }
 
-apply plugin: 'java'
-apply plugin: 'scala'
+    dependencies {
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.6'
+    }
+}
 
-sourceCompatibility = 1.8
+plugins {
+    id 'java'
+    id 'scala'
+    id 'maven'
+}
 
+sourceSets {
+    main {
+        scala {
+            srcDirs = ['src/main/scala', 'src/main/java']
+        }
+        java {
+            srcDirs = []
+        }
+    }
+}
 
 repositories {
     maven {
-        url "http://repo1.maven.org/maven2/"
+        url "https://repo1.maven.org/maven2/"
     }
     mavenLocal()
     jcenter()
 }
 
-dependencies {
-    compile group: 'org.scala-lang', name: 'scala-library', version: '2.12.8' //添加scala基本库
-    compile group: 'mysql', name:'mysql-connector-java',version:'6.0.6'
-    compile group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.11.366'
+group 'com.tsh'
+version '1.0.0'
 
+apply plugin: 'java'
+apply plugin: 'scala'
+apply plugin: 'com.jfrog.bintray'
+
+sourceCompatibility = 1.8
+
+
+dependencies {
+    compile group: 'org.scala-lang', name: 'scala-library', version: '2.12.8'
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-s3', version: '1.11.366'
+}
+
+
+
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}
+
+
+def siteUrl = 'https://github.com/tangshihui/awsS3App'    // project homepage
+def gitUrl  = 'https://github.com/tangshihui/awsS3App.git' // project git
+
+install {
+    repositories.mavenInstaller {
+        // This generates POM.xml with proper parameters
+        pom {
+            project {
+                packaging 'jar'
+                name 's3Utils'
+                url siteUrl
+                licenses {
+                    license {
+                        name 'The Apache Software License, Version 2.0'
+                        url 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                    }
+                }
+                developers {
+                    developer {
+                        id 'tangshihui'
+                        name 'tangshihui'
+                        email 'shihui@gridx.cn'
+                    }
+                }
+                scm {
+                    connection gitUrl
+                    developerConnection gitUrl
+                    url siteUrl
+                }
+            }
+        }
+    }
+}
+
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+    classifier = 'javadoc'
+    from javadoc.destinationDir
+}
+
+artifacts {
+    archives sourcesJar
+    archives javadocJar
+}
+
+
+
+bintray {
+    Properties properties = new Properties()
+    boolean isHasFile = false
+    if (project.rootProject.file('local.properties') != null){
+        isHasFile = true
+        properties.load(project.rootProject.file('local.properties').newDataInputStream())
+    }
+    user = isHasFile ? properties.getProperty("bintray.user") : System.getenv("bintray.user")
+    key = isHasFile ? properties.getProperty("bintray.apikey") : System.getenv("bintray.apikey")
+    configurations = ['archives']
+    pkg {
+        repo = "maven"
+        name = "s3Utils"
+        websiteUrl = siteUrl
+        vcsUrl = gitUrl
+        licenses = ["Apache-2.0"]
+        publish = true
+    }
 }
 
 
