@@ -1,3 +1,5 @@
+package com.tsh.utils
+
 import java.io.File
 import com.amazonaws.regions.{Region, Regions}
 import com.amazonaws.services.s3.AmazonS3Client
@@ -5,7 +7,6 @@ import com.amazonaws.services.s3.transfer.Transfer.TransferState
 import com.amazonaws.services.s3.transfer.TransferManager
 import scala.collection.JavaConverters._
 import scala.io.Source
-
 
 object S3Utils {
 
